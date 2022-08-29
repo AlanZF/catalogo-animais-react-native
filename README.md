@@ -1,2 +1,2 @@
-# crud-react-native
-CRUD com React Native.
+# App Catálogo de Animais
+Aplicativo desenvolvido com React Native para listar, cadastrar, editar e excluir animais.
