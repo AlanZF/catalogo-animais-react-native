@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState, useContext } from 'react'
 import { Text, View, TextInput, StyleSheet, Button } from 'react-native'
+import AnimalContext from '../context/AnimalContext'
 
 export default ({route, navigation}) => {
     const [animal, setAnimal] = useState(route.params ? route.params : {})
+    const { dispatch } = useContext(AnimalContext)
+    
     return (
         <View style={style.form}>
             <Text style={style.label}>Nome</Text>
@@ -36,6 +39,10 @@ export default ({route, navigation}) => {
             <Button
                 title="Salvar"
                 onPress={() => {
+                    dispatch({
+                        type: animal.id ? 'updateAnimal' : 'createAnimal',
+                        payload: animal,
+                    })
                     navigation.goBack()
                 }}>
             </Button>

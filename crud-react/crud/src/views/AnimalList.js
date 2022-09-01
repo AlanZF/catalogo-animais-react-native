@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, FlatList, Alert } from 'react-native'
 import animals from '../data/animals'
 import { ListItem, Avatar } from '@rneui/themed'
 import { Button, Icon } from '@rneui/base'
+import AnimalContext from '../context/AnimalContext'
 
 export default props => {
+
+    const { state, dispatch } = useContext(AnimalContext)
 
     function confirmAnimalDeletion(animal) {
         Alert.alert('Excluir Animal', 'Deseja excluir o animal?', [
             {
                 text: 'Sim',
                 onPress() {
-                    console.warn('delete ' + animal.id)
+                    dispatch({
+                        type: 'deleteAnimal',
+                        payload: animal,
+                    })
                 }
             },
             {
@@ -60,7 +66,7 @@ export default props => {
     return (
         <FlatList
             keyExtractor={animal => animal.id.toString()}
-            data={animals}
+            data={state.animals}
             renderItem={getAnimalItem}
         />
     )
